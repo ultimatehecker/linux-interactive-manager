@@ -6,53 +6,82 @@ if [ "$BASH_SOURCE" = "" ]; then
     exit 0
 fi
 
-#
 # Load bash-menu script
 #
 # NOTE: Ensure this is done before using
 #       or overriding menu functions/variables.
-#
+
 . functions/menus.sh
 
-
 ################################
-## Example Menu Actions
-##
 ## They should return 1 to indicate that the menu
 ## should continue, or return 0 to signify the menu
 ## should exit.
 ################################
-actionA() {
-    echo "Action A"
 
-    echo -n "Press enter to continue ... "
-    read response
+updating_system() {
+    debian() {
+        echo "Updating Debian system..."
+        sudo apt-get update
+        sudo apt-get upgrade
+        sudo apt-get dist-upgrade
+        sudo apt-get autoremove
+        sudo apt-get autoclean
+        echo "Done!"
+        return 1
+    }
 
-    return 1
+    rhel() {
+        echo "Updating RHEL system..."
+        sudo dnf update
+        sudo dnf upgrade
+        sudo dnf autoremove
+        echo "Done!"
+        return 1
+    }
+
+    arch() {
+        echo "Updating Arch system..."
+        sudo pacman -Syu
+        echo "Done!"
+        return 1
+    }
+
+    exit() {
+        echo "Exiting..."
+        startmenu
+    }
+
+    menuItems=(
+        "1. Debian"
+        "2. Red Hat Enterprise Linux"
+        "3. Arch Linux"
+        "4. Exit"
+    )
+
+    ## Menu Item Actions
+    menuActions=(
+        debian
+        rhel
+        arch
+        exit
+    )
+
+    ## Override some menu defaults
+    menuTitle="What system is your operating system based on?"
+    menuFooter=" Enter=Select, Navigate via Up/Down/First number/letter"
+    menuWidth=60
+    menuLeft=25
+    menuHighlight=$DRAW_COL_YELLOW
+
+    menuInit
+    menuLoop
 }
 
-actionB() {
-    echo "Action B"
-
-    echo -n "Press enter to continue ... "
-    read response
-
-    return 1
+exitmenu() {
+    echo "Exiting..."
+    exit 1
 }
-
-actionC() {
-    echo "Action C"
-
-    echo -n "Press enter to continue ... "
-    read response
-
-    return 1
-}
-
-actionX() {
-    return 0
-}
-
 
 ################################
 ## Setup Example Menu
@@ -67,38 +96,36 @@ actionX() {
 ##
 ## NOTE: If these are not all the same width
 ##       the menu highlight will look wonky
-menuItems=(
-    "1. Item 1"
-    "2. Item 2"
-    "3. Item 3"
-    "A. Item A"
-    "B. Item B"
-    "Q. Exit  "
-)
+##       (but it will still work).
 
-## Menu Item Actions
-menuActions=(
-    actionA
-    actionB
-    actionC
-    actionA
-    actionB
-    actionX
-)
+startmenu() {
+    menuItems=(
+        "1. Update your system"
+        "2. Exit"
+    )
 
-## Override some menu defaults
-menuTitle=" Demo of bash-menu"
-menuFooter=" Enter=Select, Navigate via Up/Down/First number/letter"
-menuWidth=60
-menuLeft=25
-menuHighlight=$DRAW_COL_YELLOW
+    ## Menu Item Actions
+    menuActions=(
+        updating_system
+        exitmenu
+    )
+
+    ## Override some menu defaults
+    menuTitle=" Welcome to the Linux System Manager! Select an option:"
+    menuFooter=" Enter=Select, Navigate via Up/Down/First number/letter"
+    menuWidth=60
+    menuLeft=25
+    menuHighlight=$DRAW_COL_YELLOW
 
 
-################################
-## Run Menu
-################################
-menuInit
-menuLoop
+    ################################
+    ## Run Menu
+    ################################
 
+    menuInit
+    menuLoop
 
-exit 0
+    exit 0
+}
+
+startmenu

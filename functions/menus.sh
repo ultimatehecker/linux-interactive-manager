@@ -1,25 +1,25 @@
+#!/bin/bash
+
+. root.sh
+
 # Ensure we are running under bash (will not work under sh or dash etc)
 if [ "$BASH_SOURCE" = "" ]; then
     echo "ERROR: bash-menu requires to be running under bash"
     exit 1
 fi
 
-# Get script root (as we are sourced from another script, $0 will not be us)
-declare -r menuScript=$(readlink -f ${BASH_SOURCE[0]})
-menuRoot=$(dirname "$menuScript")
-
 # Ensure we can access our dependencies
-if [ ! -s "$menuRoot/draw.sh" ]; then
+if [ ! -s "$menuRoot/functions/draw.sh" ]; then
     echo "ERROR: Missing required draw.sh script"
     exit 1
 fi
 
 # Load terminal drawing functions
-. "$menuRoot/draw.sh"
+. "$menuRoot/functions/draw.sh"
 
 # Load terminal drawing constants
-. "$menuRoot/../constants/colors.sh"
-. "$menuRoot/../constants/constants.sh"
+. "$menuRoot/constants/colors.sh"
+. "$menuRoot/constants/constants.sh"
 
 ################################
 # Initialise Menu

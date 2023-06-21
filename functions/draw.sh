@@ -15,7 +15,8 @@
 
 # Ensure we are running under bash (will not work under sh or dash etc)
 
-source ../constants/colors.sh
+. root.sh
+. "$menuRoot/constants/colors.sh"
 
 if [ "$BASH_SOURCE" = "" ]; then
     echo "ERROR: bash-draw requires to be running under bash"
