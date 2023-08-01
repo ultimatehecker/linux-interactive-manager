@@ -6,41 +6,44 @@ if [ "$BASH_SOURCE" = "" ]; then
     exit 0
 fi
 
-# Load bash-menu script
-#
-# NOTE: Ensure this is done before using
-#       or overriding menu functions/variables.
-
 . functions/menus.sh
 . constants/constants
 
-################################
-## First time setup
-################################
+storeSystem() {
 
-if [!menuSystem]; then
-    storeSystem
-fi
+    setDebian() {
+        menuSystem="Debian"
+    }
 
-startmenu() {
+    setRHLE() {
+        menuSystem="RHLE"
+    }
+
+    setArch() {
+        menuSystem="Arch"
+    }
+
     menuItems=(
-        "1. Update your system"
-        "2. Exit"
+        "1. Debian (Ubuntu, Linux Mint, ElementaryOS)"
+        "2. Red Hat Linux Enterprise (Fedora)"
+        "3. Arch (Manjaro, Arch Linux)"
+        "4. Exit"
     )
 
     ## Menu Item Actions
     menuActions=(
-        updating_system
-        exitmenu
+        setDebian
+        setRHLE
+        setArch
+        exit
     )
 
     ## Override some menu defaults
-    menuTitle=" Welcome to the Linux System Manager! Select an option:"
+    menuTitle=" Please select what system you are on"
     menuFooter=" Enter=Select, Navigate via Up/Down/First number/letter"
     menuWidth=60
     menuLeft=25
     menuHighlight=$DRAW_COL_YELLOW
-
 
     ################################
     ## Run Menu
@@ -51,5 +54,3 @@ startmenu() {
 
     exit 0
 }
-
-startmenu

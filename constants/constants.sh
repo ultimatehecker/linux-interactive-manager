@@ -45,3 +45,19 @@ menuHighlight=$DRAW_COL_GREEN
 
 menuTitle=" Super Bash Menu System"
 menuFooter=" Enter=Select, Up/Down=Prev/Next Option"
+
+menuSystem=""
+
+operatingList=(
+    "1. Debian"
+    "2. Arch"
+    "3. Red Hat Linux Enterprise"
+)
+
+startMenuList=(
+    "1. Update your system"
+    "2. System Information"
+    "3. Launch an application (BETA)"
+    "4. Create a system app through tarbell"
+    "5."
+)
