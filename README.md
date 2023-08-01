@@ -14,7 +14,7 @@ After cloning the repository, for easy access it is also reccomended to cut and 
 directory. Once that is done, you could give all permissions to the file:
 
 ```bash
-sudo chmod 777 ./start.shh
+sudo chmod 777 ./start.sh
 ```
 
 Once all permissions are given, you can run the start menu by doing:
