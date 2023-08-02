@@ -15,8 +15,8 @@ storeSystem() {
         menuSystem="Debian"
     }
 
-    setRHLE() {
-        menuSystem="RHLE"
+    setRHEL() {
+        menuSystem="RHEL"
     }
 
     setArch() {
@@ -25,7 +25,7 @@ storeSystem() {
 
     menuItems=(
         "1. Debian (Ubuntu, Linux Mint, ElementaryOS)"
-        "2. Red Hat Linux Enterprise (Fedora)"
+        "2. Red Hat Enterprise Linux (Fedora)"
         "3. Arch (Manjaro, Arch Linux)"
         "4. Exit"
     )
@@ -33,7 +33,7 @@ storeSystem() {
     ## Menu Item Actions
     menuActions=(
         setDebian
-        setRHLE
+        setRHEL
         setArch
         exit
     )
