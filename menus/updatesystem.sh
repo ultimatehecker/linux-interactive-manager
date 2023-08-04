@@ -25,7 +25,6 @@ updating_system() {
 
     rhel() {
         echo "Updating RHEL system..."
-        sudo dnf update
         sudo dnf upgrade
         sudo dnf autoremove
         echo "Done!"
